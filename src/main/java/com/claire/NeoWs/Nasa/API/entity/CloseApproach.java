@@ -21,10 +21,13 @@ public class CloseApproach {
     @Column(name = "approach_date")
     private Date date;
 
-    private double kilometersPerSecond;
-    private double kilometersMissDistance;
-
     private String orbitingBody;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private RelativeVelocity relativeVelocity;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private MissDistance missDistance;
 
     @ManyToOne
     private NearEarthObject neo;

@@ -8,8 +8,9 @@ import java.util.Date;
 public record CloseApproachDTO(
         Long id,
         Date date,
-        double kilometersPerSecond,
-        double kilometersMissDistance,
         String orbitingBody,
-        NearEarthObjectDTO neo) {
+        RelativeVelocityDTO relativeVelocity,
+        MissDistanceDTO missDistance,
+        NearEarthObjectDTO neo
+) {
 }

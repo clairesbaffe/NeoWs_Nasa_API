@@ -7,6 +7,7 @@ import com.claire.NeoWs.Nasa.API.repository.NearEarthObjectRepository;
 import com.claire.NeoWs.Nasa.API.service.NearEarthObjectService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -16,15 +17,16 @@ import java.util.Optional;
 public class CloseApproachMapping {
 
     private final NearEarthObjectMapping nearEarthObjectMapping;
-    private final NearEarthObjectService nearEarthObjectService;
+    private final RelativeVelocityMapping relativeVelocityMapping;
+    private final MissDistanceMapping missDistanceMapping;
 
     public CloseApproach dtoToEntity(CloseApproachDTO closeApproachDTO){
         return CloseApproach.builder()
                 .id(closeApproachDTO.id())
                 .date(closeApproachDTO.date())
-                .kilometersPerSecond(closeApproachDTO.kilometersPerSecond())
-                .kilometersMissDistance(closeApproachDTO.kilometersMissDistance())
                 .orbitingBody(closeApproachDTO.orbitingBody())
+                .relativeVelocity(closeApproachDTO.relativeVelocity() != null ? relativeVelocityMapping.dtoToEntity(closeApproachDTO.relativeVelocity()) : null)
+                .missDistance(closeApproachDTO.missDistance() != null ? missDistanceMapping.dtoToEntity(closeApproachDTO.missDistance()) : null)
                 .neo(closeApproachDTO.neo() != null ? nearEarthObjectMapping.dtoToEntity(closeApproachDTO.neo()) : null)
                 .build();
     }
@@ -33,9 +35,9 @@ public class CloseApproachMapping {
         return CloseApproachDTO.builder()
                 .id(closeApproach.getId())
                 .date(closeApproach.getDate())
-                .kilometersPerSecond(closeApproach.getKilometersPerSecond())
-                .kilometersMissDistance(closeApproach.getKilometersMissDistance())
                 .orbitingBody(closeApproach.getOrbitingBody())
+                .relativeVelocity(closeApproach.getRelativeVelocity() != null ? relativeVelocityMapping.entityToDto(closeApproach.getRelativeVelocity()) : null)
+                .missDistance(closeApproach.getMissDistance() != null ? missDistanceMapping.entityToDto(closeApproach.getMissDistance()) : null)
                 .neo(closeApproach.getNeo() != null ? nearEarthObjectMapping.entityToDto(closeApproach.getNeo()) : null)
                 .build();
     }

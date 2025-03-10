@@ -73,7 +73,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/bouncer/**").hasRole("BOUNCER") // faire rebondir une requête
                         .requestMatchers("/scraper/**").hasRole("SCRAPER") // lancer un scrapping
-                        .requestMatchers("/user/**").hasRole("USER") // utiliser le crud
+                        .requestMatchers("/near_earth_object/**").hasRole("USER") // utiliser le crud
+                        .requestMatchers("/close_approach/**").hasRole("USER") // utiliser le crud
                         // Accès public a certaines routes, notamment la page d'accueil, l'inscription et le login
                         .requestMatchers("/", "/index", "/test", "/test/*", "/api/users/register", "/api/login").permitAll()
                         .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification

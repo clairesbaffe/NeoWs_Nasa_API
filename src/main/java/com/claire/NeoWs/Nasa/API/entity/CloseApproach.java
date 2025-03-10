@@ -24,6 +24,8 @@ public class CloseApproach {
     private double kilometersPerSecond;
     private double kilometersMissDistance;
 
+    private String orbitingBody;
+
     @ManyToOne
     private NearEarthObject neo;
 }

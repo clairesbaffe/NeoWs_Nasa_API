@@ -75,11 +75,18 @@ public class ScraperService {
                         .path("meters")
                         .path("estimated_diameter_max")
                         .asDouble();
+                boolean isPotentiallyHazardousAsteroid = node.path("is_potentially_hazardous_asteroid")
+                        .asBoolean();
 
-                NearEarthObjectDTO neoDTO = new NearEarthObjectDTO(
-                        neoReferenceId, name, nameLimited, absoluteMagnitudeH,
-                        estimatedDiameterMin, estimatedDiameterMax
-                );
+                NearEarthObjectDTO neoDTO = NearEarthObjectDTO.builder()
+                        .neoReferenceId(neoReferenceId)
+                        .name(name)
+                        .nameLimited(nameLimited)
+                        .absoluteMagnitudeH(absoluteMagnitudeH)
+                        .estimatedDiameterMin(estimatedDiameterMin)
+                        .estimatedDiameterMax(estimatedDiameterMax)
+                        .isPotentiallyHazardousAsteroid(isPotentiallyHazardousAsteroid)
+                        .build();
 
                 NearEarthObject neo = nearEarthObjectMapping.dtoToEntity(neoDTO);
                 NearEarthObject savedNeo = nearEarthObjectRepository.save(neo);
@@ -94,11 +101,13 @@ public class ScraperService {
                     double kilometersMissDistance = cANode.path("miss_distance")
                             .path("kilometers")
                             .asDouble();
+                    String orbitingBody = cANode.path("orbiting_body").asText();
 
                     CloseApproachDTO closeApproachDTO = CloseApproachDTO.builder()
                             .date(date)
                             .kilometersPerSecond(kilometersPerSecond)
                             .kilometersMissDistance(kilometersMissDistance)
+                            .orbitingBody(orbitingBody)
                             .build();
 
                     CloseApproach closeApproach = closeApproachMapping.dtoToEntity(closeApproachDTO);

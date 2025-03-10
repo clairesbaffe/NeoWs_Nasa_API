@@ -28,6 +28,8 @@ public class NearEarthObject {
     private double estimatedDiameterMin;
     private double estimatedDiameterMax;
 
+    private boolean isPotentiallyHazardousAsteroid;
+
     @OneToMany(mappedBy = "neo")
     private List<CloseApproach> closeApproaches;
 }
